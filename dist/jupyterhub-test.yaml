@@ -1,0 +1,89 @@
+apiVersion: apps/v1
+
+kind: Deployment
+
+metadata:
+
+  name: jupyter-notebook
+
+
+  labels:
+
+    app: jupyter-notebook
+
+spec:
+
+  replicas: 1
+
+  selector:
+
+    matchLabels:
+
+      app: jupyter-notebook
+
+  template:
+
+    metadata:
+
+      labels:
+
+        app: jupyter-notebook
+
+    spec:
+
+      containers:
+
+        - name: jupyter-test
+
+          image: njoroge0330/jupyter-image-test:v1
+
+          ports:
+
+            - containerPort: 8888
+
+          env:
+
+            - name: JUPYTER_TOKEN
+
+              value: "mysecuretoken"
+
+          volumeMounts:
+
+            - name: notebook-data
+
+              mountPath: /home/jovyan/work
+
+      volumes:
+
+        - name: notebook-data
+
+          emptyDir: {}
+
+
+---
+
+apiVersion: v1
+
+kind: Service
+
+metadata:
+
+  name: jupyter-notebook
+
+
+spec:
+
+  type: NodePort  # Change to ClusterIP or LoadBalancer based on your needs
+
+  selector:
+
+    app: jupyter-notebook
+
+  ports:
+
+    - port: 80
+
+      targetPort: 8888
+
+      nodePort: 32445  # Optional: access via http://<node-ip>:30088
+

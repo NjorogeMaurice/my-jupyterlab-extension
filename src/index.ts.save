@@ -222,13 +222,12 @@ const plugin: JupyterFrontEndPlugin<void> = {
     
               const urlListContainer = document.createElement('div');
               urlListContainer.classList.add('url-list-container'); // Add class for easy identification
-
+    	      
               urlListContainer.style.height = '100%';
               urlListContainer.style.overflowY = 'auto';
               urlListContainer.style.overflowX = 'hidden';
               urlListContainer.style.paddingRight = '10px';
-	      urlListContainer.style.boxSizing = 'border-box';
-    
+              urlListContainer.style.boxSizing = 'border-box'
               // Loop through each title and create a div for each title
               titles.forEach((title, index) => {
                 const titleItem = document.createElement('div');
